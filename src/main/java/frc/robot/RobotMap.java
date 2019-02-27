@@ -42,7 +42,11 @@ public class RobotMap {
     public final static int GS_LEFT_SOLENOID_CHANNEL_OUT = 5;
     public final static int PCM_ID = 0;
 
-    //Joystick Buttons
+    /*
+     * ****************
+     * JOYSTICK BUTTONS
+     * ****************
+     */
 
     //Operator Buttons
     public static final int SHOOT_OUT_BUTTON = 1;
@@ -51,9 +55,10 @@ public class RobotMap {
     public static final int CAMERA_BUTTON_UPDOWN = 12;
     public static final int HATCH_PUSH_OUT = 3;
     public static final int HATCH_PUSH_IN = 4;
-    public static final int HATCH_STOP = 5;
+    public static final int DRIVE_SHIFT = 6;
 
     //Drive Buttons
-    public static final int AUTO_ALIGN_BUTTON = 3;
+    public static final int CENTERPOINT_PID_COMMAND = 3;
+    public static final int AUTO_ALIGN_BUTTON = 4;
 
 }
