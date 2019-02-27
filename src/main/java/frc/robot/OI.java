@@ -18,6 +18,7 @@ public class OI {
     private Button centerPointOrientButton = new JoystickButton(
         driveStick, 
         RobotMap.CENTERPOINT_PID_COMMAND);
+    private Button driveShiftButton = new JoystickButton(driveStick, RobotMap.DRIVE_SHIFT);
 
     private Button shootOutButton = new JoystickButton(operatorStick, RobotMap.SHOOT_OUT_BUTTON);
     private Button shootInButton = new JoystickButton(operatorStick, RobotMap.SHOOT_IN_BUTTON);
@@ -29,6 +30,7 @@ public class OI {
     public OI() {
         this.autoAlignButton.whenPressed(new AutoAlignCommand());
         this.centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
+        this.driveShiftButton.whenPressed(new TeleopDrive());
 
         Command teleopCargoShoot = new TeleopCargoShoot();
         this.shootOutButton.whenPressed(teleopCargoShoot);
