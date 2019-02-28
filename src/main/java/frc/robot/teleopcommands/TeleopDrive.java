@@ -11,45 +11,42 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class TeleopCameraController extends Command {
+public class TeleopDrive extends Command {
 
-  private boolean isForward = true;
-  private boolean isUp = true;
+  private final static double Y_THRESHOLD = 0.3;
+  private final static double Z_THRESHOLD = 0.3;
 
-  public TeleopCameraController() {
+  private final static double Y_NERF = 1;
+  private final static double Z_NERF = 0.8;
+
+  private boolean isFastGear = false;
+
+  public TeleopDrive() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.cameraController);
+    requires(Robot.driveTrain);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.cameraController.setX(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isForward) {
-        Robot.cameraController.setZ(1);
-        isForward = false;
-        Robot.driveTrain.setDirection(-1);
+    if (Robot.oi.driveStick.getRawButtonReleased(RobotMap.SWITCH_GEARS)) {
+      if (isFastGear) {
+        Robot.driveTrain.shiftDown();
       } else {
-        Robot.cameraController.setZ(0);
-        isForward = true;
-        Robot.driveTrain.setDirection(1);
+        Robot.driveTrain.shiftUp();
       }
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isUp) {
-        Robot.cameraController.setX(0.5);
-        isUp = false;
-      } else {
-        Robot.cameraController.setX(0);
-        isUp = true;
-      }
-    }
+
+    double y = Robot.oi.getDriveY();
+    double z = Robot.oi.getDriveX();
+    double yInput = Y_NERF * (Math.abs(y) < Y_THRESHOLD ? 0 : -y);
+    double zInput = Z_NERF * (Math.abs(z) < Z_THRESHOLD ? 0 : -z);
+    Robot.driveTrain.arcade(yInput, zInput);
   }
 
   // Make this return true when this Command no longer needs to run execute()
