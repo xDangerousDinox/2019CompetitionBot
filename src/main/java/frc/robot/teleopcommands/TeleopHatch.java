@@ -31,9 +31,6 @@ public class TeleopHatch extends Command {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_PUSH_OUT)) {
       Robot.hatchArm.reverseRelease();
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_STOP)) {
-      Robot.hatchArm.stopRelease();
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

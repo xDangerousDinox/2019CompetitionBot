@@ -34,7 +34,7 @@ public class TeleopDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.driveStick.getRawButtonReleased(RobotMap.SWITCH_GEARS)) {
+    if (Robot.oi.driveStick.getRawButtonReleased(RobotMap.DRIVE_SHIFT)) {
       if (isFastGear) {
         Robot.driveTrain.shiftDown();
       } else {
