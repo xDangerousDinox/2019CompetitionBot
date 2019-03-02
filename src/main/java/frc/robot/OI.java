@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.autocommands.AutoAlignCommand;
+import frc.robot.autocommands.LowerCargoArmCommand;
 import frc.robot.autocommands.OrientTowardsCenterpointCommand;
+import frc.robot.autocommands.RaiseCargoArmCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,10 +18,14 @@ public class OI {
 
     private Button autoAlignButton = new JoystickButton(driveStick, RobotMap.AUTO_ALIGN_BUTTON);
     private Button centerPointOrientButton = new JoystickButton(driveStick, RobotMap.CENTERPOINT_PID_COMMAND);
+    private Button lowerCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_LOWER);
+    private Button raiseCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_LIFT);
 
     public OI() {
-        this.autoAlignButton.whenPressed(new AutoAlignCommand());
-        this.centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
+        autoAlignButton.whenPressed(new AutoAlignCommand());
+        centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
+        lowerCargoArm.whenPressed(new LowerCargoArmCommand());
+        raiseCargoArm.whenPressed(new RaiseCargoArmCommand());
     }
 
       // Drive Stick

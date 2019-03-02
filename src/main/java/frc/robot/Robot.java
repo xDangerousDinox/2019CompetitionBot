@@ -17,6 +17,7 @@ import frc.robot.subsystems.CargoArm;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchArm;
+import frc.robot.subsystems.PIDCargoArm;
 import frc.robot.teleopcommands.SmartDash;
 import frc.robot.teleopcommands.TeleopCameraController;
 import frc.robot.teleopcommands.TeleopCargoShoot;
@@ -59,6 +60,8 @@ public class Robot extends TimedRobot {
   public static SmartDash smartDash = new SmartDash();
   public static TeleopCameraController teleopCameraController = new TeleopCameraController();
   public static TeleopHatch teleopHatch = new TeleopHatch();
+
+  public static PIDCargoArm pidCargoArm = new PIDCargoArm();
 
   public static AutoSwitchCommand autoSwitchCommand;
 

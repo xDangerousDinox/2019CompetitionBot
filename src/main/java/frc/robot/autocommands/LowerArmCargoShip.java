@@ -9,16 +9,14 @@ package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.CargoArm;
 
-public class LowerCargoArmCommand extends Command {
+public class LowerArmCargoShip extends Command {
   // TODO: Tune
 
   private final double kArmLowerMax = 0.05;
-  private final double kArmLowStall = 0.00;
 
 
-  public LowerCargoArmCommand() {
+  public LowerArmCargoShip() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.cargoArm);
@@ -28,6 +26,7 @@ public class LowerCargoArmCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.cargoArm.releaseBrake();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,28 +34,25 @@ public class LowerCargoArmCommand extends Command {
   protected void execute() {
     double angle = Robot.cargoArm.getAngle();
     double out = 0;
-    if (angle > Math.toRadians(5 + CargoArm.startingAngle)) {
-      out = Math.cos(angle) * kArmLowerMax;
+    if (angle < 90) {
+      out = Math.cos(Math.toRadians(angle)) * kArmLowerMax;
+    } else {
+      out = -0.05;
     }
-    if (angle < Math.toRadians(-30))
-      out *= 3;
-    else if (angle > Math.toRadians(80))
-      out -= 0.2;
-    else
-      out -= 0.1;
     Robot.cargoArm.setCargoArm(out);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.cargoArm.getAngle() < Math.toRadians(5 + CargoArm.startingAngle);
+    return Robot.cargoArm.getAngle() < 3;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.cargoArm.setCargoArm(0);
+    Robot.cargoArm.brake();
   }
 
   // Called when another command which requires one or more of the same

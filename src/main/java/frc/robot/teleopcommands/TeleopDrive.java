@@ -37,8 +37,10 @@ public class TeleopDrive extends Command {
     if (Robot.oi.driveStick.getRawButtonReleased(RobotMap.DRIVE_SHIFT)) {
       if (isFastGear) {
         Robot.driveTrain.shiftDown();
+        isFastGear = false;
       } else {
         Robot.driveTrain.shiftUp();
+        isFastGear = true;
       }
     }
 

@@ -5,62 +5,52 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.teleopcommands;
+package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class TeleopCameraController extends Command {
+public class PIDMoveArm extends Command {
 
-  private boolean isForward = true;
-  private boolean isUp = true;
+  public int targetAngle;
 
-  public TeleopCameraController() {
+  public PIDMoveArm(int targetAngle) {
+    this.targetAngle = targetAngle;
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.cameraController);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.cameraController.setX(0.5);
+    double angle = Robot.cargoArm.getAngle();
+    if (angle < targetAngle) {
+      Robot.pidCargoArm.setSetpoint(0.2);
+    } else {
+      Robot.pidCargoArm.setSetpoint(-0.2);
+    }
+    Robot.cargoArm.releaseBrake();
+    Robot.pidCargoArm.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isForward) {
-        Robot.cameraController.setZ(1);
-        isForward = false;
-        Robot.driveTrain.reverseDirection();
-      } else {
-        Robot.cameraController.setZ(0);
-        isForward = true;
-        Robot.driveTrain.reverseDirection();
-      }
-    }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isUp) {
-        Robot.cameraController.setX(0.5);
-        isUp = false;
-      } else {
-        Robot.cameraController.setX(0);
-        isUp = true;
-      }
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    double angle = Robot.cargoArm.getAngle();
+    return angle < targetAngle + 1 && angle > targetAngle - 1;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.pidCargoArm.disable();
+    Robot.cargoArm.brake();
+    Robot.cargoArm.setCargoArm(0);
   }
 
   // Called when another command which requires one or more of the same
