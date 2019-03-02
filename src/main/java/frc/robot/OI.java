@@ -1,10 +1,10 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.*;
-import edu.wpi.first.wpilibj.buttons.*;
-import frc.robot.autocommands.*;
-import frc.robot.teleopcommands.*;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.autocommands.AutoAlignCommand;
+import frc.robot.autocommands.OrientTowardsCenterpointCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,34 +15,11 @@ public class OI {
     public final Joystick operatorStick = new Joystick(1);
 
     private Button autoAlignButton = new JoystickButton(driveStick, RobotMap.AUTO_ALIGN_BUTTON);
-    private Button centerPointOrientButton = new JoystickButton(
-        driveStick, 
-        RobotMap.CENTERPOINT_PID_COMMAND);
-    private Button driveShiftButton = new JoystickButton(driveStick, RobotMap.DRIVE_SHIFT);
-
-    private Button shootOutButton = new JoystickButton(operatorStick, RobotMap.SHOOT_OUT_BUTTON);
-    private Button shootInButton = new JoystickButton(operatorStick, RobotMap.SHOOT_IN_BUTTON);
-    private Button cameraButtonSwitchSidesButton = new JoystickButton(operatorStick, RobotMap.CAMERA_BUTTON_SWITCH_SIDES);
-    private Button cameraButtonUpdownButton = new JoystickButton(operatorStick, RobotMap.CAMERA_BUTTON_UPDOWN);
-    private Button hatchPushOutButton = new JoystickButton(operatorStick, RobotMap.HATCH_PUSH_OUT);
-    private Button hatchPushInButton = new JoystickButton(operatorStick, RobotMap.HATCH_PUSH_IN);
+    private Button centerPointOrientButton = new JoystickButton(driveStick, RobotMap.CENTERPOINT_PID_COMMAND);
 
     public OI() {
         this.autoAlignButton.whenPressed(new AutoAlignCommand());
         this.centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        this.driveShiftButton.whenPressed(new TeleopDrive());
-
-        Command teleopCargoShoot = new TeleopCargoShoot();
-        this.shootOutButton.whenPressed(teleopCargoShoot);
-        this.shootInButton.whenPressed(teleopCargoShoot);
-
-        Command teleopCameraController = new TeleopCameraController();
-        this.cameraButtonSwitchSidesButton.whenPressed(teleopCameraController);
-        this.cameraButtonUpdownButton.whenPressed(teleopCameraController);
-
-        Command teleopHatch = new TeleopHatch();
-        this.hatchPushOutButton.whenPressed(teleopHatch);
-        this.hatchPushInButton.whenPressed(teleopHatch);
     }
 
       // Drive Stick

@@ -21,26 +21,9 @@ import frc.robot.RobotMap;
 public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
-  private double gearBoxReduction = 1;
-  private double coefficient = (360 * gearBoxReduction / 4096);
-  public static double startingAngle = 90; //is it a problem if i have two public variables with the same name java is a bad language?
-
-  private WPI_TalonSRX hatchArm = new WPI_TalonSRX(RobotMap.ARM_HATCH); 
   
-  private DoubleSolenoid hatchLimb = new DoubleSolenoid(RobotMap.LIMB_SOLENOID_CHANNEL_IN, RobotMap.LIMB_SOLENOID_CHANNEL_OUT); 
-  private DoubleSolenoid hatchRelease = new DoubleSolenoid(RobotMap.HATCH_SOLENDOID_CHANNEL_IN, RobotMap.HATCH_SOLENOID_CHANNEL_OUT);
-
-
-
-  public HatchArm() {
-
-    hatchArm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
-    hatchArm.configSelectedFeedbackCoefficient(coefficient);
-    hatchArm.setSensorPhase(false); //????
-    hatchArm.setSelectedSensorPosition(0, 0, 0);
- 
-  }
+  private DoubleSolenoid hatchTop = new DoubleSolenoid(RobotMap.TOP_SOLENOID_CHANNEL_IN, RobotMap.Top_SOLENOID_CHANNEL_OUT); 
+  private DoubleSolenoid hatchBottom = new DoubleSolenoid(RobotMap.HATCH_SOLENDOID_CHANNEL_IN, RobotMap.HATCH_SOLENOID_CHANNEL_OUT);
 
   @Override
   public void initDefaultCommand() {
@@ -48,36 +31,27 @@ public class HatchArm extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void set(double value) { // changed this from "setHatchArm" for clarity and ease of reading
-    hatchArm.set(value);
+  public void forwardBottom() {
+    hatchBottom.set(DoubleSolenoid.Value.kForward);
   }
 
-  //TODO get actual angle
-  public double getAngle() {
-    return hatchArm.getSelectedSensorPosition() + startingAngle;
+  public void reverseBottom() {
+    hatchBottom.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public void forwardRelease() {
-    hatchRelease.set(DoubleSolenoid.Value.kForward);
+  public void stopBottom() {
+    hatchBottom.set(DoubleSolenoid.Value.kOff);
   }
 
-  public void reverseRelease() {
-    hatchRelease.set(DoubleSolenoid.Value.kReverse);
+  public void forwardTop() {
+    hatchTop.set(DoubleSolenoid.Value.kForward);
   }
 
-  public void stopRelease() {
-    hatchRelease.set(DoubleSolenoid.Value.kOff);
+  public void reverseTop() {
+    hatchTop.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public void forwardLimb() {
-    hatchLimb.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void reverseLimb() {
-    hatchLimb.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void stopLimb() {
-    hatchLimb.set(DoubleSolenoid.Value.kOff);
+  public void stopTop() {
+    hatchTop.set(DoubleSolenoid.Value.kOff);
   }
 }

@@ -24,7 +24,7 @@ public class Climb extends Subsystem {
   private double coefficient = (360 * gearBoxReduction / 4096);
 
 
-  private WPI_TalonSRX climb = new WPI_TalonSRX(RobotMap.CLIMB);
+  private WPI_TalonSRX climb = new WPI_TalonSRX(RobotMap.);
 
   public Climb() {
     climb.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 

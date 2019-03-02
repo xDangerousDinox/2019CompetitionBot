@@ -25,10 +25,10 @@ public class TeleopHatch extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_PUSH_IN)) {
-      Robot.hatchArm.forwardRelease();
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BOTTOM_PUSH_IN)) {
+      Robot.hatchArm.forwardLimb();
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_PUSH_OUT)) {
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BOTTOM_PUSH_OUT)) {
       Robot.hatchArm.reverseRelease();
     }
   }
