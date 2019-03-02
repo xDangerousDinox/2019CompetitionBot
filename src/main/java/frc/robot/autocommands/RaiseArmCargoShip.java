@@ -10,14 +10,11 @@ package frc.robot.autocommands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RaiseCargoArmCommand extends Command {
+public class RaiseArmCargoShip extends Command {
 
   // TODO: Tune
-	private final double kArmRaiseMax = 0.5;
-	private final double kArmUpStall = 0.05;
-  private double startTime;
   
-  public RaiseCargoArmCommand() {
+  public RaiseArmCargoShip() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
 		requires(Robot.cargoArm);
@@ -26,7 +23,7 @@ public class RaiseCargoArmCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    
+    Robot.cargoArm.releaseBrake();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -41,13 +38,15 @@ public class RaiseCargoArmCommand extends Command {
 		// else if (angle > Math.toRadians(80))
 		// out = kArmUpStall;
 
-		out = Math.cos(Math.toRadians(Robot.cargoArm.getAngle()));
-		if (Robot.cargoArm.getAngle() > 75) {
-			out *= 0.6; // 0.6
-			out += 0.1;
-		}
-		if (Robot.cargoArm.getAngle() > 150)
-			out = kArmUpStall;
+		out = Math.cos(Math.toRadians(angle));
+		if (angle < 45) {
+			out *= 0.4; // 0.6
+			out += 0.05;
+		} else if (angle < 90) {
+      out *= 0.2;
+    } else if (angle > 90) {
+      out *= 0.2;
+    }
 	  // if (Timer.getFPGATimestamp() < startTime + 0.5)
 		//  	out = 0;
 		Robot.cargoArm.setCargoArm(out);
@@ -56,14 +55,15 @@ public class RaiseCargoArmCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-		return Robot.cargoArm.getAngle() > 150;
+    double angle = Robot.cargoArm.getAngle();
+		return angle < 91 && angle > 89;
   } 
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.cargoArm.setCargoArm(0);
-
+    Robot.cargoArm.brake();
   }
 
   // Called when another command which requires one or more of the same

@@ -12,6 +12,11 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class TeleopHatch extends Command {
+
+  private boolean isRetractedTop = true;
+  private boolean isRetractedBottom = true;
+  private boolean isRetractedRotation = true;
+
   public TeleopHatch() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.hatchArm);
@@ -25,14 +30,32 @@ public class TeleopHatch extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_PUSH_IN)) {
-      Robot.hatchArm.forwardRelease();
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_TOP)) {
+      if (isRetractedTop) {
+        Robot.hatchArm.forwardTop();
+        isRetractedTop = false;
+      } else {
+        Robot.hatchArm.reverseTop();
+        isRetractedTop = true;
+      }
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_PUSH_OUT)) {
-      Robot.hatchArm.reverseRelease();
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BOTTOM)) {
+      if (isRetractedBottom) {
+        Robot.hatchArm.forwardBottom();
+        isRetractedBottom = false;
+      } else {
+        Robot.hatchArm.reverseBottom();
+        isRetractedBottom = true;
+      }
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_STOP)) {
-      Robot.hatchArm.stopRelease();
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_ROTATION)) {
+      if (isRetractedRotation) {
+        Robot.hatchArm.forwardRotation();
+        isRetractedRotation = false;
+      } else {
+        Robot.hatchArm.reverseRotation();
+        isRetractedRotation = true;
+      }
     }
   }
 

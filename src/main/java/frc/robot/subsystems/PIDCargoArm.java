@@ -9,36 +9,38 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class CargoArm extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+public class PIDCargoArm extends PIDSubsystem {
+  /**
+   * Add your docs here.
+   */
+
+  private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
 
   private double gearBoxReduction = 1;
   private double coefficient = (360 * gearBoxReduction / 4096);
   public static double startingAngle = 150; //see note on HatchArm
-
   
-  private CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOT, MotorType.kBrushed);
-  private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO); //dummy value
-
-  private DoubleSolenoid cargoBrake = new DoubleSolenoid(RobotMap.ARM_STOP_IN, RobotMap.ARM_STOP_OUT);
-
-  public CargoArm() {
+  public PIDCargoArm() {
+    // Intert a subsystem name and PID values here
+    super("PIDCargoArm", 0.05, 0, 0);
 
     cargoArm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
     cargoArm.configSelectedFeedbackCoefficient(coefficient);
     cargoArm.setSensorPhase(false); //????
     cargoArm.setSelectedSensorPosition(0, 0, 0);
+
+    setOutputRange(-1, 1);
+    // Use these to get going:
+    // setSetpoint() - Sets where the PID controller should move the system
+    // to
+    // enable() - Enables the PID controller.
   }
 
   @Override
@@ -47,31 +49,22 @@ public class CargoArm extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
 
-  public void setCargoArm(double speed) {
-    cargoArm.set(speed);
+  @Override
+  protected double returnPIDInput() {
+    // Return your input value for the PID loop
+    // e.g. a sensor, like a potentiometer:
+    // yourPot.getAverageVoltage() / kYourMaxVoltage;
+    return getVelocity();
   }
 
-  public double getAngle() {
-    return cargoArm.getSelectedSensorPosition() + startingAngle;
+  @Override
+  protected void usePIDOutput(double output) {
+    // Use output to drive your system, like a motor
+    // e.g. yourMotor.set(output);
+    cargoArm.set(output);
   }
 
-  public void shootOut() {
-    shoot.set(0.7);
-  }
-
-  public void stopShoot() {
-    shoot.set(0);
-  }
-
-  public void shootIn() {
-    shoot.set(-0.7);
-  }
-
-  public void brake() {
-    cargoBrake.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void releaseBrake() {
-    cargoBrake.set(DoubleSolenoid.Value.kOff);
+  public double getVelocity() {
+    return cargoArm.getSelectedSensorVelocity() * coefficient;
   }
 }

@@ -5,62 +5,61 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.teleopcommands;
+package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class TeleopCameraController extends Command {
-
-  private boolean isForward = true;
-  private boolean isUp = true;
-
-  public TeleopCameraController() {
+public class RaiseArmRocketShip extends Command {
+  public RaiseArmRocketShip() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.cameraController);
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.cameraController.setX(0.5);
+    Robot.cargoArm.releaseBrake();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isForward) {
-        Robot.cameraController.setZ(1);
-        isForward = false;
-        Robot.driveTrain.reverseDirection();
-      } else {
-        Robot.cameraController.setZ(0);
-        isForward = true;
-        Robot.driveTrain.reverseDirection();
-      }
+    double angle = Robot.cargoArm.getAngle();
+		double out = 0;
+		// if (angle < 0)
+		// out = Math.cos(angle) * kArmRaiseMax;
+		// else if (angle > 0 && angle < Math.toRadians(60))
+		// out = 0;
+		// else if (angle > Math.toRadians(80))
+		// out = kArmUpStall;
+
+		out = Math.cos(Math.toRadians(angle));
+		if (angle < 25) {
+			out *= 0.4; // 0.6
+			out += 0.05;
+		} else if (angle < 90) {
+      out *= 0.2;
+    } else if (angle > 90) {
+      out *= 0.2;
     }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.CAMERA_BUTTON_SWITCH_SIDES)) {
-      if (isUp) {
-        Robot.cameraController.setX(0.5);
-        isUp = false;
-      } else {
-        Robot.cameraController.setX(0);
-        isUp = true;
-      }
-    }
+	  // if (Timer.getFPGATimestamp() < startTime + 0.5)
+		//  	out = 0;
+		Robot.cargoArm.setCargoArm(out);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
-  }
+    double angle = Robot.cargoArm.getAngle();
+		return angle < 46 && angle > 45;
+  } 
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.cargoArm.setCargoArm(0);
+    Robot.cargoArm.brake();
   }
 
   // Called when another command which requires one or more of the same

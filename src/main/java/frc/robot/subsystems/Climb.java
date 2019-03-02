@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -24,13 +25,14 @@ public class Climb extends Subsystem {
   private double coefficient = (360 * gearBoxReduction / 4096);
 
 
-  private WPI_TalonSRX climb = new WPI_TalonSRX(RobotMap.CLIMB);
+  // private CANSparkMax climb = new CANSparkMax(RobotMap.CLIMB1, );
+  // private CANSparkMax climb2 = new CANSparkMax();
 
   public Climb() {
-    climb.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
-    climb.configSelectedFeedbackCoefficient(coefficient);
-    climb.setSensorPhase(false); //??
-    climb.setSelectedSensorPosition(0, 0, 0);
+    // climb.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
+    // climb.configSelectedFeedbackCoefficient(coefficient);
+    // climb.setSensorPhase(false); //??
+    // climb.setSelectedSensorPosition(0, 0, 0);
   }
 
   @Override
@@ -40,10 +42,10 @@ public class Climb extends Subsystem {
   }
 
   public void setClimbMotor(double speed) {
-    climb.set(speed);
+    //climb.set(speed);
   }
 
-  public double getAngle() {
-    return climb.getSelectedSensorPosition();
-  }
+  // public double getAngle() {
+  //   return climb.getSelectedSensorPosition();
+  // }
 }

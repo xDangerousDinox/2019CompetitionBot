@@ -55,7 +55,7 @@ public class DriveTrain extends Subsystem {
   private EncoderFollower rightFollower;
 
   //Solenoid to control gear shift
-  private DoubleSolenoid gearShift = new DoubleSolenoid(RobotMap.GEAR_SHIFT_IN, RobotMap.GEAR_SHIFT_OUT);
+  private DoubleSolenoid gearShift = new DoubleSolenoid(RobotMap.DRIVE_SHIFT_IN, RobotMap.DRIVE_SHIFT_OUT);
   private boolean isFastGear = true;
 
   //Orientation Swap
