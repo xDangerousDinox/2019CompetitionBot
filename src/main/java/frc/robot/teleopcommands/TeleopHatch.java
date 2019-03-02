@@ -12,6 +12,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class TeleopHatch extends Command {
+
+  private boolean isRetractedTop = true;
+
   public TeleopHatch() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.hatchArm);
@@ -25,11 +28,14 @@ public class TeleopHatch extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BOTTOM_PUSH_IN)) {
-      Robot.hatchArm.forwardLimb();
-    }
-    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BOTTOM_PUSH_OUT)) {
-      Robot.hatchArm.reverseRelease();
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_TOP)) {
+      if (isRetractedTop) {
+        Robot.hatchArm.forwardTop();
+        isRetractedTop = false;
+      } else {
+        Robot.hatchArm.reverseTop();
+        isRetractedTop = true;
+      }
     }
   }
 

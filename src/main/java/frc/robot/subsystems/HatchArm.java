@@ -22,8 +22,9 @@ public class HatchArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   
-  private DoubleSolenoid hatchTop = new DoubleSolenoid(RobotMap.TOP_SOLENOID_CHANNEL_IN, RobotMap.Top_SOLENOID_CHANNEL_OUT); 
-  private DoubleSolenoid hatchBottom = new DoubleSolenoid(RobotMap.HATCH_SOLENDOID_CHANNEL_IN, RobotMap.HATCH_SOLENOID_CHANNEL_OUT);
+  private DoubleSolenoid hatchTop = new DoubleSolenoid(RobotMap.HATCH_TOP_PUSH_OUT, RobotMap.HATCH_TOP_PUSH_IN); 
+  private DoubleSolenoid hatchBottom = new DoubleSolenoid(RobotMap.HATCH_BOTTOM_PUSH_OUT, RobotMap.HATCH_BOTTOM_PUSH_IN);
+  private DoubleSolenoid hatchRotation = new DoubleSolenoid(RobotMap.HATCH_ROTATION_PUSH_OUT, RobotMap.HATCH_ROTATION_PUSH_IN);
 
   @Override
   public void initDefaultCommand() {
@@ -53,5 +54,17 @@ public class HatchArm extends Subsystem {
 
   public void stopTop() {
     hatchTop.set(DoubleSolenoid.Value.kOff);
+  }
+
+  public void forwardRotation() {
+    hatchRotation.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void reverseRotation() {
+    hatchRotation.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void stopRotation() {
+    hatchRotation.set(DoubleSolenoid.Value.kOff);
   }
 }
