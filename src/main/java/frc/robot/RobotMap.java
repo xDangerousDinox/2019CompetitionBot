@@ -19,11 +19,11 @@ public class RobotMap {
 
     //Cargo Arm
     public static final int ARM_CARGO = 18;
-    public static final int SHOOT = 19;
+   public static final int SHOOT = 19;
 
     //Climb 
-    public static final int CLIMB_1 = 16;
-    public static final int CLIMB_2 = 17;
+    //public static final int CLIMB_1 = 16;
+    //public static final int CLIMB_2 = 17;
 
     //Servos
     public static final int CAMERA_Z = 4;
@@ -36,13 +36,13 @@ public class RobotMap {
     public static final int HATCH_TOP_PUSH_OUT = 2;
     public static final int HATCH_TOP_PUSH_IN = 3;
     public static final int HATCH_BOTTOM_PUSH_OUT = 4;
-    public static final int HATCH_BOTTOM_PUSH_IN = 5; 
+    public static final int HATCH_BOTTOM_PUSH_IN = 5;
 
     public final static int PCM12V_ID = 1;
     public final static int DRIVE_SHIFT_IN = 0;
     public final static int DRIVE_SHIFT_OUT = 1;
-    public final static int ARM_STOP_IN = 2;
-    public final static int ARM_STOP_OUT = 3;
+    public final static int ARM_STOP_IN = 5;
+    public final static int ARM_STOP_OUT = 2;
     public final static int CLIMB_TORQUE_IN = 4;
     public final static int CLIMB_TORQUE_OUT = 5;
 
@@ -60,12 +60,15 @@ public class RobotMap {
     public static final int HATCH_ROTATION = 5;
     public static final int HATCH_BOTTOM = 6;
     public static final int HATCH_TOP = 7;
-    public static final int CAMERA_BUTTON_SWITCH_SIDES = 11;
-    public static final int CAMERA_BUTTON_UPDOWN = 12;
+    public static final int BRAKE = 11;
+    public static final int BRAKE_RELEASE = 12;
+    public static final int CAMERA_BUTTON_SWITCH_SIDES = 0;
+    public static final int CAMERA_BUTTON_UPDOWN = 0;
 
     //Drive Buttons
  
-    public static final int DRIVE_SHIFT = 2;
+    public static final int DRIVE_SHIFT_1 = 11;
+    public static final int DRIVE_SHIFT_2 = 12;
     public static final int CENTERPOINT_PID_COMMAND = 3;
     public static final int AUTO_ALIGN_BUTTON = 4;
 

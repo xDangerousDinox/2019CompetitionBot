@@ -4,12 +4,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.autocommands.AutoAlignCommand;
-import frc.robot.autocommands.LowerCargoArmCommand;
 import frc.robot.autocommands.OrientTowardsCenterpointCommand;
-import frc.robot.autocommands.RaiseCargoArmCommand;
 
 /**
- * This class is the glue that binds the controls on the physical operator
+ * This class is the glue that binds the controls on  the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
@@ -24,8 +22,8 @@ public class OI {
     public OI() {
         autoAlignButton.whenPressed(new AutoAlignCommand());
         centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        lowerCargoArm.whenPressed(new LowerCargoArmCommand());
-        raiseCargoArm.whenPressed(new RaiseCargoArmCommand());
+        // lowerCargoArm.whenPressed(new Lo());
+        // raiseCargoArm.whenPressed(new RaiseCargoArmCommand());
     }
 
       // Drive Stick

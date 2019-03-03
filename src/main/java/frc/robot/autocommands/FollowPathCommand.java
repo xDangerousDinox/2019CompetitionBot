@@ -54,9 +54,9 @@ public class FollowPathCommand extends Command {
   protected void initialize() {
     File leftFile = new File(fileLocationLeft);
     File rightFile = new File(fileLocationRight);
-    Trajectory leftTraj = Pathfinder.readFromCSV(rightFile);
-    Trajectory rightTraj = Pathfinder.readFromCSV(leftFile);
-    Robot.driveTrain.trajectoryFollowInit(leftTraj, rightTraj);
+    // Trajectory leftTraj = Pathfinder.readFromCSV(rightFile);
+    // Trajectory rightTraj = Pathfinder.readFromCSV(leftFile);
+    // Robot.driveTrain.trajectoryFollowInit(leftTraj, rightTraj);
   }
 
   // Called repeatedly when this Command is scheduled to run

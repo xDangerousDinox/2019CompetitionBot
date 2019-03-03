@@ -9,6 +9,7 @@ package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class PIDMoveArm extends Command {
 
@@ -23,34 +24,37 @@ public class PIDMoveArm extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    double angle = Robot.cargoArm.getAngle();
-    if (angle < targetAngle) {
-      Robot.pidCargoArm.setSetpoint(0.2);
-    } else {
-      Robot.pidCargoArm.setSetpoint(-0.2);
-    }
-    Robot.cargoArm.releaseBrake();
+    Robot.pidCargoArm.setSetpoint(0.0);
     Robot.pidCargoArm.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    double y = Robot.oi.operatorStick.getY();
+    if (y > 0.2 || y < -0.2) {
+      Robot.pidCargoArm.setSetpoint(y);
+    } else {
+      Robot.pidCargoArm.setSetpoint(0);
+    }
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE)) {
+      Robot.cargoArm.brake();
+    }
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE_RELEASE)) {
+      Robot.cargoArm.releaseBrake();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double angle = Robot.cargoArm.getAngle();
-    return angle < targetAngle + 1 && angle > targetAngle - 1;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
     Robot.pidCargoArm.disable();
-    Robot.cargoArm.brake();
-    Robot.cargoArm.setCargoArm(0);
   }
 
   // Called when another command which requires one or more of the same

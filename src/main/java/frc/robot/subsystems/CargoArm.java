@@ -23,13 +23,13 @@ public class CargoArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private double gearBoxReduction = 1;
+  private double gearBoxReduction = 0.5;
   private double coefficient = (360 * gearBoxReduction / 4096);
-  public static double startingAngle = 150; //see note on HatchArm
+  public static double startingAngle = 115; //see note on HatchArm
 
   
   private CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOT, MotorType.kBrushed);
-  private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO); //dummy value
+  private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
 
   private DoubleSolenoid cargoBrake = new DoubleSolenoid(RobotMap.ARM_STOP_IN, RobotMap.ARM_STOP_OUT);
 
@@ -55,6 +55,10 @@ public class CargoArm extends Subsystem {
     return cargoArm.getSelectedSensorPosition() + startingAngle;
   }
 
+  public int getSelectedSensorVelocity() {
+    return this.cargoArm.getSelectedSensorVelocity();
+  }
+
   public void shootOut() {
     shoot.set(0.7);
   }
@@ -72,6 +76,6 @@ public class CargoArm extends Subsystem {
   }
 
   public void releaseBrake() {
-    cargoBrake.set(DoubleSolenoid.Value.kOff);
+    cargoBrake.set(DoubleSolenoid.Value.kForward);
   }
 }
