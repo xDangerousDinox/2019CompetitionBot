@@ -28,14 +28,14 @@ public class PIDCargoArm extends PIDSubsystem {
   
   public PIDCargoArm() {
     // Intert a subsystem name and PID values here
-    super("PIDCargoArm", 0.3, 0.0, 0.05);
+    super("PIDCargoArm", 0.2, 0.1, 0.05);
 
     // cargoArm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
     // cargoArm.configSelectedFeedbackCoefficient(coefficient);
     // cargoArm.setSensorPhase(false); //????
     // cargoArm.setSelectedSensorPosition(0, 0, 0);
 
-    setOutputRange(-0.5, 1);
+    setOutputRange(-0.3, 0.3);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to

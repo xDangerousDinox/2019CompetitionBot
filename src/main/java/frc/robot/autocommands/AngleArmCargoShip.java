@@ -28,9 +28,9 @@ public class AngleArmCargoShip extends Command {
   protected void initialize() {
     Robot.cargoArm.releaseBrake();
     if (Robot.cargoArm.getAngle() < targetAngle) {
-      Robot.pidCargoArm.setSetpoint(0.65);
+      Robot.pidCargoArm.setSetpoint(0.1);
     } else {
-      Robot.pidCargoArm.setSetpoint(-0.65);
+      Robot.pidCargoArm.setSetpoint(-0.1);
     }
     Robot.pidCargoArm.enable();
   }
@@ -38,14 +38,15 @@ public class AngleArmCargoShip extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double angle = Robot.cargoArm.getAngle();
-    if (Math.abs(targetAngle - angle) < 15 && Math.abs(Robot.pidCargoArm.getSetpoint()) != 0.35) {
-      if (Robot.cargoArm.getAngle() < targetAngle) {
-        Robot.pidCargoArm.setSetpoint(0.35);
-      } else {
-        Robot.pidCargoArm.setSetpoint(-0.35);
-      }
-    }
+    // double angle = Robot.cargoArm.getAngle();
+    // if (Math.abs(targetAngle - angle) < 15 && 
+    // (Robot.pidCargoArm.getSetpoint() != 0.35 && Robot.pidCargoArm.getSetpoint() != -.15)) {
+    //   if (Robot.cargoArm.getAngle() < targetAngle) {
+    //     Robot.pidCargoArm.setSetpoint(0.15);
+    //   } else {
+    //     Robot.pidCargoArm.setSetpoint(-0.15);
+    //   }
+    // }
   }
 
   // Make this return true when this Command no longer needs to run execute()
