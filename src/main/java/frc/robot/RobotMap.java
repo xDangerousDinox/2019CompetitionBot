@@ -53,13 +53,15 @@ public class RobotMap {
      */
 
     //Operator Buttons
-    public static final int SHOOT_OUT_BUTTON = 1;
-    public static final int SHOOT_IN_BUTTON = 2;
-    public static final int CARGO_ARM_LIFT = 3;
-    public static final int CARGO_ARM_LOWER = 4;
-    public static final int HATCH_ROTATION = 5;
-    public static final int HATCH_BOTTOM = 6;
-    public static final int HATCH_TOP = 7;
+    public static final int SHOOT_OUT_BUTTON = 2;
+    public static final int SHOOT_IN_BUTTON = 1;
+    public static final int CARGO_ARM_FLOOR = 7;
+    public static final int CARGO_ARM_CARGO = 8;
+    public static final int CARGO_ARM_ROCKET = 9;
+    public static final int CARGO_ARM_STOW = 10;
+    public static final int HATCH_ROTATION = 3;
+    public static final int HATCH_BOTTOM = 4;
+    public static final int HATCH_TOP = 5;
     public static final int BRAKE = 11;
     public static final int BRAKE_RELEASE = 12;
     public static final int CAMERA_BUTTON_SWITCH_SIDES = 0;

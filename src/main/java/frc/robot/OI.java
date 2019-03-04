@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.autocommands.AngleArmCargoShip;
 import frc.robot.autocommands.AutoAlignCommand;
 import frc.robot.autocommands.OrientTowardsCenterpointCommand;
 
@@ -16,14 +17,18 @@ public class OI {
 
     private Button autoAlignButton = new JoystickButton(driveStick, RobotMap.AUTO_ALIGN_BUTTON);
     private Button centerPointOrientButton = new JoystickButton(driveStick, RobotMap.CENTERPOINT_PID_COMMAND);
-    private Button lowerCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_LOWER);
-    private Button raiseCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_LIFT);
+    private Button floorCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_FLOOR);
+    private Button cargoCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_CARGO);
+    private Button rocketCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_ROCKET);
+    private Button stowCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_STOW);
 
     public OI() {
         autoAlignButton.whenPressed(new AutoAlignCommand());
         centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        // lowerCargoArm.whenPressed(new Lo());
-        // raiseCargoArm.whenPressed(new RaiseCargoArmCommand());
+        floorCargoArm.whenReleased(new AngleArmCargoShip(0));
+        cargoCargoArm.whenReleased(new AngleArmCargoShip(80));
+        rocketCargoArm.whenReleased(new AngleArmCargoShip(50));
+        stowCargoArm.whenReleased(new AngleArmCargoShip(100));
     }
 
       // Drive Stick

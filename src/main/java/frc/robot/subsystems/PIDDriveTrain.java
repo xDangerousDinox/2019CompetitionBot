@@ -8,34 +8,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import frc.robot.Robot;
 
 /**
  * Add your docs here.
  */
-public class PIDCargoArm extends PIDSubsystem {
+public class PIDDriveTrain extends PIDSubsystem {
   /**
    * Add your docs here.
    */
-
-  //private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
-
-  private static final double NERF_SPEED = 1.0;
-
-  private double gearBoxReduction = 0.5;
-  private double coefficient = (360 * gearBoxReduction / 4096);
-  public static double startingAngle = 150; //see note on HatchArm
-  
-  public PIDCargoArm() {
+  public PIDDriveTrain() {
     // Intert a subsystem name and PID values here
-    super("PIDCargoArm", 0.3, 0.0, 0.05);
-
-    // cargoArm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
-    // cargoArm.configSelectedFeedbackCoefficient(coefficient);
-    // cargoArm.setSensorPhase(false); //????
-    // cargoArm.setSelectedSensorPosition(0, 0, 0);
-
-    setOutputRange(-0.5, 1);
+    super("PIDDriveTrain", 1, 2, 3);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
@@ -53,17 +36,12 @@ public class PIDCargoArm extends PIDSubsystem {
     // Return your input value for the PID loop
     // e.g. a sensor, like a potentiometer:
     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return getVelocity();
+    return 0.0;
   }
 
   @Override
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    Robot.cargoArm.setCargoArm(output * NERF_SPEED);
-  }
-
-  public double getVelocity() {
-    return Robot.cargoArm.getSelectedSensorVelocity() * coefficient;
   }
 }

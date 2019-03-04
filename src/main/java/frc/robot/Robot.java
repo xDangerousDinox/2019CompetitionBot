@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autocommands.AutoSwitchCommand;
-import frc.robot.autocommands.PIDMoveArm;
+import frc.robot.autocommands.PIDManualMoveArm;
 import frc.robot.subsystems.CameraController;
 import frc.robot.subsystems.CargoArm;
 import frc.robot.subsystems.Climb;
@@ -69,9 +69,10 @@ public class Robot extends TimedRobot {
 
   public static ManualCargoArm manualCargoArm = new ManualCargoArm();
 
-  public static PIDCargoArm pidCargoArm = new PIDCargoArm();
+  public static PIDCargoArm pidCargoArm = new PIDCargoArm()
+  ;
 
-  public static PIDMoveArm PIDMoveArm = new PIDMoveArm(0);
+  public static PIDManualMoveArm pidManualMoveArm = new PIDManualMoveArm();
 
   public static AutoSwitchCommand autoSwitchCommand;
 
@@ -132,9 +133,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     super.autonomousInit();
-    autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
-    autoSwitchCommand.start();
+    //autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
+    //autoSwitchCommand.start();
     teleopDrive.start();
+    //pidManualMoveArm.start();
+    teleopCargoShoot.start();
   }
 
   /**
@@ -149,10 +152,10 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     super.teleopInit();
     //teleopCameraController.start();
-    //teleopCargoShoot.start();
+    teleopCargoShoot.start();
     //smartDash.start();
     teleopDrive.start();
-    PIDMoveArm.start();
+    //pidManualMoveArm.start();
     //manualCargoArm.start();
     //teleopHatch.start();
     //driveTrain.arcade(0.7, 0);

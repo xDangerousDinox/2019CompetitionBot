@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -75,6 +77,24 @@ public class DriveTrain extends Subsystem {
     right2.setInverted(true);
     left3.setInverted(true);
 
+    shiftUp();
+
+    // left1.setParameter(ConfigParameter.kIdleMode, 0);
+    // left2.setParameter(ConfigParameter.kIdleMode, 0);
+    // left3.setParameter(ConfigParameter.kIdleMode, 0);
+
+    // right1.setParameter(ConfigParameter.kIdleMode, 0);
+    // right2.setParameter(ConfigParameter.kIdleMode, 0);
+    // right3.setParameter(ConfigParameter.kIdleMode, 0);
+
+    // left1.setParameter(ConfigParameter.kMotorType, 1);
+    // left2.setParameter(ConfigParameter.kMotorType, 1);
+    // left3.setParameter(ConfigParameter.kMotorType, 1);
+
+    // right1.setParameter(ConfigParameter.kMotorType, 1);
+    // right2.setParameter(ConfigParameter.kMotorType, 1);
+    // right3.setParameter(ConfigParameter.kMotorType, 1);
+
     gearShift.set(DoubleSolenoid.Value.kReverse);
 
     // Set up gyro
@@ -124,15 +144,23 @@ public class DriveTrain extends Subsystem {
   }
 
   public void arcade(double ySpeed, double zRotation) {
+    SmartDashboard.putNumber("left1", left1.getOutputCurrent());
+    SmartDashboard.putNumber("left2", left2.getOutputCurrent());
+    SmartDashboard.putNumber("left3", left3.getOutputCurrent());
+    SmartDashboard.putNumber("right1", right1.getOutputCurrent());
+    SmartDashboard.putNumber("right2", right2.getOutputCurrent());
+    SmartDashboard.putNumber("right3", right3.getOutputCurrent());
     drive.arcadeDrive(ySpeed * reverseDirection, zRotation * reverseDirection);
   }
 
   public void shiftUp() {
     gearShift.set(DoubleSolenoid.Value.kForward);
+    SmartDashboard.putString("Gear", "Fast");
   }
 
   public void shiftDown() {
     gearShift.set(DoubleSolenoid.Value.kReverse);
+    SmartDashboard.putString("Gear", "Slow");
   }
 
   public ADXRS450_Gyro getGyro() {

@@ -31,6 +31,7 @@ public class ManualCargoArm extends Command {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE_RELEASE)) {
       Robot.cargoArm.releaseBrake();
     }
+    Robot.cargoArm.setCargoArm(Robot.oi.operatorStick.getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

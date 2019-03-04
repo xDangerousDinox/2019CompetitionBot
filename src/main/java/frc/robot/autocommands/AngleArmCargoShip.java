@@ -10,59 +10,57 @@ package frc.robot.autocommands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RaiseArmCargoShip extends Command {
+public class AngleArmCargoShip extends Command {
 
   // TODO: Tune
-  
-  public RaiseArmCargoShip() {
+
+  private double targetAngle;
+
+  public AngleArmCargoShip(int targetAngle) {
+    this.targetAngle = targetAngle;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-		requires(Robot.cargoArm);
+    requires(Robot.cargoArm);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     Robot.cargoArm.releaseBrake();
+    if (Robot.cargoArm.getAngle() < targetAngle) {
+      Robot.pidCargoArm.setSetpoint(0.65);
+    } else {
+      Robot.pidCargoArm.setSetpoint(-0.65);
+    }
+    Robot.pidCargoArm.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     double angle = Robot.cargoArm.getAngle();
-		double out = 0;
-		// if (angle < 0)
-		// out = Math.cos(angle) * kArmRaiseMax;
-		// else if (angle > 0 && angle < Math.toRadians(60))
-		// out = 0;
-		// else if (angle > Math.toRadians(80))
-		// out = kArmUpStall;
-
-		out = Math.cos(Math.toRadians(angle));
-		if (angle < 45) {
-			out *= 0.4; // 0.6
-			out += 0.05;
-		} else if (angle < 90) {
-      out *= 0.2;
-    } else if (angle > 90) {
-      out *= 0.2;
+    if (Math.abs(targetAngle - angle) < 15 && Math.abs(Robot.pidCargoArm.getSetpoint()) != 0.35) {
+      if (Robot.cargoArm.getAngle() < targetAngle) {
+        Robot.pidCargoArm.setSetpoint(0.35);
+      } else {
+        Robot.pidCargoArm.setSetpoint(-0.35);
+      }
     }
-	  // if (Timer.getFPGATimestamp() < startTime + 0.5)
-		//  	out = 0;
-		Robot.cargoArm.setCargoArm(out);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     double angle = Robot.cargoArm.getAngle();
-		return angle < 91 && angle > 89;
+		return angle < (targetAngle + 2.5) && angle > (targetAngle - 2.5);
   } 
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.pidCargoArm.disable();
     Robot.cargoArm.setCargoArm(0);
+    Robot.pidCargoArm.setSetpoint(0);
     Robot.cargoArm.brake();
   }
 

@@ -10,10 +10,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.ConfigParameter;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -29,16 +31,19 @@ public class CargoArm extends Subsystem {
 
   
   private CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOT, MotorType.kBrushed);
-  private WPI_TalonSRX cargoArm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
+  private WPI_TalonSRX arm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
 
   private DoubleSolenoid cargoBrake = new DoubleSolenoid(RobotMap.ARM_STOP_IN, RobotMap.ARM_STOP_OUT);
 
   public CargoArm() {
 
-    cargoArm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
-    cargoArm.configSelectedFeedbackCoefficient(coefficient);
-    cargoArm.setSensorPhase(false); //????
-    cargoArm.setSelectedSensorPosition(0, 0, 0);
+    shoot.setParameter(ConfigParameter.kIdleMode, 1);
+    shoot.setParameter(ConfigParameter.kMotorType, 0);
+
+    arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
+    arm.configSelectedFeedbackCoefficient(coefficient);
+    arm.setSensorPhase(false); //????
+    arm.setSelectedSensorPosition(0, 0, 0);
   }
 
   @Override
@@ -48,19 +53,20 @@ public class CargoArm extends Subsystem {
   }
 
   public void setCargoArm(double speed) {
-    cargoArm.set(speed);
+    arm.set(speed);
+    SmartDashboard.putNumber("Arm Angle", getAngle());
   }
 
   public double getAngle() {
-    return cargoArm.getSelectedSensorPosition() + startingAngle;
+    return -1 * arm.getSelectedSensorPosition() + startingAngle;
   }
 
   public int getSelectedSensorVelocity() {
-    return this.cargoArm.getSelectedSensorVelocity();
+    return this.arm.getSelectedSensorVelocity();
   }
 
   public void shootOut() {
-    shoot.set(0.7);
+    shoot.set(-1);
   }
 
   public void stopShoot() {
@@ -68,14 +74,16 @@ public class CargoArm extends Subsystem {
   }
 
   public void shootIn() {
-    shoot.set(-0.7);
-  }
-
-  public void brake() {
-    cargoBrake.set(DoubleSolenoid.Value.kReverse);
+    shoot.set(0.5);
   }
 
   public void releaseBrake() {
+    cargoBrake.set(DoubleSolenoid.Value.kReverse);
+    SmartDashboard.putString("Brake", "On");
+  }
+
+  public void brake() {
     cargoBrake.set(DoubleSolenoid.Value.kForward);
+    SmartDashboard.putString("Brake", "Off");
   }
 }
