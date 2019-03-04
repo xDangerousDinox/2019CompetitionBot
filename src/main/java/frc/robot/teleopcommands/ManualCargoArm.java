@@ -5,17 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.autocommands;
+package frc.robot.teleopcommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class PIDMoveArm extends Command {
-
-  public int targetAngle;
-
-  public PIDMoveArm(int targetAngle) {
-    this.targetAngle = targetAngle;
+public class ManualCargoArm extends Command {
+  public ManualCargoArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -23,34 +20,31 @@ public class PIDMoveArm extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    double angle = Robot.cargoArm.getAngle();
-    if (angle < targetAngle) {
-      Robot.pidCargoArm.setSetpoint(0.2);
-    } else {
-      Robot.pidCargoArm.setSetpoint(-0.2);
-    }
-    Robot.cargoArm.releaseBrake();
-    Robot.pidCargoArm.enable();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE)) {
+      Robot.cargoArm.brake();
+    }
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE_RELEASE)) {
+      Robot.cargoArm.releaseBrake();
+    }
+    // if (Math.abs(Robot.oi.operatorStick.getY()) > 0.2) {
+    //   Robot.cargoArm.setCargoArm(Robot.oi.operatorStick.getY() * 0.3);
+    // }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double angle = Robot.cargoArm.getAngle();
-    return angle < targetAngle + 1 && angle > targetAngle - 1;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.pidCargoArm.disable();
-    Robot.cargoArm.brake();
-    Robot.cargoArm.setCargoArm(0);
   }
 
   // Called when another command which requires one or more of the same

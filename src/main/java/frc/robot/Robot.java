@@ -7,17 +7,23 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.autocommands.AutoSwitchCommand;
+import frc.robot.autocommands.PIDManualMoveArm;
 import frc.robot.subsystems.CameraController;
 import frc.robot.subsystems.CargoArm;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchArm;
 import frc.robot.subsystems.PIDCargoArm;
+import frc.robot.teleopcommands.ManualCargoArm;
 import frc.robot.teleopcommands.SmartDash;
 import frc.robot.teleopcommands.TeleopCameraController;
 import frc.robot.teleopcommands.TeleopCargoShoot;
@@ -61,11 +67,18 @@ public class Robot extends TimedRobot {
   public static TeleopCameraController teleopCameraController = new TeleopCameraController();
   public static TeleopHatch teleopHatch = new TeleopHatch();
 
-  public static PIDCargoArm pidCargoArm = new PIDCargoArm();
+  public static ManualCargoArm manualCargoArm = new ManualCargoArm();
+
+  public static PIDCargoArm pidCargoArm = new PIDCargoArm()
+  ;
+
+  public static PIDManualMoveArm pidManualMoveArm = new PIDManualMoveArm();
 
   public static AutoSwitchCommand autoSwitchCommand;
 
   public static OI oi = new OI();
+
+  public CANSparkMax test = new CANSparkMax(RobotMap.LEFT_DRIVE_1, MotorType.kBrushless);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -89,6 +102,7 @@ public class Robot extends TimedRobot {
     endingPosition.addOption("leftSecond", "leftSecond");
     endingPosition.addOption("leftThird", "leftThird");
     SmartDashboard.putData("Ending Position", endingPosition);
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -119,8 +133,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     super.autonomousInit();
-    autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
-    autoSwitchCommand.start();
+    //autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
+    //autoSwitchCommand.start();
+    teleopDrive.start();
+    //pidManualMoveArm.start();
+    teleopCargoShoot.start();
   }
 
   /**
@@ -134,11 +151,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     super.teleopInit();
-    teleopCameraController.start();
+    //teleopCameraController.start();
     teleopCargoShoot.start();
-    smartDash.start();
+    //smartDash.start();
     teleopDrive.start();
-    teleopHatch.start();
+    //pidManualMoveArm.start();
+    //manualCargoArm.start();
+    //teleopHatch.start();
+    //driveTrain.arcade(0.7, 0);
   }
 
   /**
