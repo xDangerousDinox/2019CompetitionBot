@@ -61,6 +61,10 @@ public class CargoArm extends Subsystem {
     return -1 * arm.getSelectedSensorPosition() + startingAngle;
   }
 
+  public double getVelocity() {
+    return arm.getSelectedSensorVelocity();
+  }
+
   public int getSelectedSensorVelocity() {
     return this.arm.getSelectedSensorVelocity();
   }
