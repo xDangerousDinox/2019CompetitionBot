@@ -3,9 +3,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.autocommands.AngleArmCargoShip;
 import frc.robot.autocommands.AutoAlignCommand;
 import frc.robot.autocommands.OrientTowardsCenterpointCommand;
+import frc.robot.autocommands.SetAngleArm;
 
 /**
  * This class is the glue that binds the controls on  the physical operator
@@ -25,10 +25,10 @@ public class OI {
     public OI() {
         autoAlignButton.whenPressed(new AutoAlignCommand());
         centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        floorCargoArm.whenReleased(new AngleArmCargoShip(0));
-        cargoCargoArm.whenReleased(new AngleArmCargoShip(80));
-        rocketCargoArm.whenReleased(new AngleArmCargoShip(50));
-        stowCargoArm.whenReleased(new AngleArmCargoShip(100));
+        floorCargoArm.whenReleased(new SetAngleArm(15));
+        cargoCargoArm.whenReleased(new SetAngleArm(80));
+        rocketCargoArm.whenReleased(new SetAngleArm(50));
+        stowCargoArm.whenReleased(new SetAngleArm(110));
     }
 
       // Drive Stick

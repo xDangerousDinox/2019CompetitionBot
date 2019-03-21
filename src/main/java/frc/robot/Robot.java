@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
     //smartDash.start();
     //teleopDrive.start();
     //pidManualMoveArm.start();
-    //manualCargoArm.start();
+    manualCargoArm.start();
     //teleopHatch.start();
     //driveTrain.arcade(0.7, 0);
   }
@@ -167,7 +167,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println(cargoArm.get
+    System.out.println(cargoArm.getVelocity() + "Velcoity");
+    System.out.println(cargoArm.getAngle() + "Angle");
   }
 
   /**
