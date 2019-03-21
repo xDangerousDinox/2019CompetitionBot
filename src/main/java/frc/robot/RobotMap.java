@@ -31,13 +31,10 @@ public class RobotMap {
 
     //Pneumatics
     public final static int PCM24V_ID = 0;
-    public static final int HATCH_ROTATION_PUSH_OUT = 0;
-    public static final int HATCH_ROTATION_PUSH_IN = 1;
-    public static final int HATCH_TOP_PUSH_OUT = 2;
-    public static final int HATCH_TOP_PUSH_IN = 3;
-    public static final int HATCH_BOTTOM_PUSH_OUT = 4;
-    public static final int HATCH_BOTTOM_PUSH_IN = 5;
 
+    public static final int HATCH_IN = -1;
+    public static final int HATCH_OUT = -1;
+    
     public final static int PCM12V_ID = 1;
     public final static int DRIVE_SHIFT_IN = 0;
     public final static int DRIVE_SHIFT_OUT = 1;
@@ -60,9 +57,7 @@ public class RobotMap {
     public static final int CARGO_ARM_CARGO = 8;
     public static final int CARGO_ARM_ROCKET = 9;
     public static final int CARGO_ARM_STOW = 10;
-    public static final int HATCH_ROTATION = 3;
-    public static final int HATCH_BOTTOM = 4;
-    public static final int HATCH_TOP = 5;
+    public static final int HATCH = -1;
     public static final int BRAKE = 11;
     public static final int BRAKE_RELEASE = 12;
     public static final int CAMERA_BUTTON_SWITCH_SIDES = 0;
