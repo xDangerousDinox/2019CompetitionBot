@@ -135,9 +135,9 @@ public class Robot extends TimedRobot {
     super.autonomousInit();
     //autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
     //autoSwitchCommand.start();
-    teleopDrive.start();
+    //teleopDrive.start();
     //pidManualMoveArm.start();
-    teleopCargoShoot.start();
+    //teleopCargoShoot.start();
   }
 
   /**
@@ -152,9 +152,9 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     super.teleopInit();
     //teleopCameraController.start();
-    teleopCargoShoot.start();
+    //teleopCargoShoot.start();
     //smartDash.start();
-    teleopDrive.start();
+    //teleopDrive.start();
     //pidManualMoveArm.start();
     //manualCargoArm.start();
     //teleopHatch.start();
@@ -167,6 +167,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    System.out.println(cargoArm.get
   }
 
   /**
