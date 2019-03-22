@@ -9,14 +9,16 @@ package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class AngleArmCargoShip extends Command {
+public class SetAngleArm extends Command {
 
   // TODO: Tune
 
   private double targetAngle;
+  private boolean emergencyBreak = false;
 
-  public AngleArmCargoShip(int targetAngle) {
+  public SetAngleArm(int targetAngle) {
     this.targetAngle = targetAngle;
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -28,9 +30,9 @@ public class AngleArmCargoShip extends Command {
   protected void initialize() {
     Robot.cargoArm.releaseBrake();
     if (Robot.cargoArm.getAngle() < targetAngle) {
-      Robot.pidCargoArm.setSetpoint(0.1);
+      Robot.pidCargoArm.setSetpoint(0.2);
     } else {
-      Robot.pidCargoArm.setSetpoint(-0.1);
+      Robot.pidCargoArm.setSetpoint(-0.2);
     }
     Robot.pidCargoArm.enable();
   }
@@ -38,6 +40,9 @@ public class AngleArmCargoShip extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.EMERGENCY_STOP)) {
+      emergencyBreak = true;
+    }
     // double angle = Robot.cargoArm.getAngle();
     // if (Math.abs(targetAngle - angle) < 15 && 
     // (Robot.pidCargoArm.getSetpoint() != 0.35 && Robot.pidCargoArm.getSetpoint() != -.15)) {
@@ -52,6 +57,9 @@ public class AngleArmCargoShip extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if (emergencyBreak) {
+      return emergencyBreak;
+    }
     double angle = Robot.cargoArm.getAngle();
 		return angle < (targetAngle + 2.5) && angle > (targetAngle - 2.5);
   } 

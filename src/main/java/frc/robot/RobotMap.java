@@ -55,6 +55,7 @@ public class RobotMap {
     //Operator Buttons
     public static final int SHOOT_OUT_BUTTON = 2;
     public static final int SHOOT_IN_BUTTON = 1;
+    public static final int EMERGENCY_STOP = 6;
     public static final int CARGO_ARM_FLOOR = 7;
     public static final int CARGO_ARM_CARGO = 8;
     public static final int CARGO_ARM_ROCKET = 9;
