@@ -8,6 +8,7 @@
 package frc.robot.teleopcommands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -27,9 +28,11 @@ public class TeleopHatch extends Command {
   @Override
   protected void execute() {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_FORWARD)) {
+      SmartDashboard.putString("HatchOut", "True");
         Robot.hatchArm.forward();
     }
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BACKWARD)) {
+      SmartDashboard.putString("HatchOut", "False");
       Robot.hatchArm.reverse();
     }
   }

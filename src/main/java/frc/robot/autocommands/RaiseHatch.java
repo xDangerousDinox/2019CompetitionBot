@@ -21,10 +21,7 @@ public class RaiseHatch extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    if (Robot.hatchArm.getAngle() < 45) {
-      Robot.pidHatchArm.setSetpoint(0.1);
-      Robot.pidHatchArm.enable();
-    }
+    Robot.hatchArm.setHatchArm(0.15);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -35,14 +32,13 @@ public class RaiseHatch extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.hatchArm.getAngle() == 80;
+    return Robot.hatchArm.getAngle() > 70;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.pidHatchArm.setSetpoint(0);
-    Robot.pidHatchArm.disable();
+    Robot.hatchArm.setHatchArm(0);
   }
 
   // Called when another command which requires one or more of the same

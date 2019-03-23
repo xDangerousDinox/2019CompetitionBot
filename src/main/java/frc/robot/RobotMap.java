@@ -21,7 +21,7 @@ public class RobotMap {
     public static final int ARM_CARGO = 18;
     public static final int SHOOT = 19;
 
-    public static final int HATCH_FALL = -1;
+    public static final int HATCH_FALL = 20;
 
     // Climb
     // public static final int CLIMB_1 = 16;
@@ -34,12 +34,12 @@ public class RobotMap {
     // Pneumatics
     public final static int PCM24V_ID = 0;
 
-    public static final int HATCH_IN = -1;
-    public static final int HATCH_OUT = -1;
+    public static final int HATCH_IN = 1;
+    public static final int HATCH_OUT = 6;
 
     public final static int PCM12V_ID = 1;
-    public final static int DRIVE_SHIFT_IN = 0;
-    public final static int DRIVE_SHIFT_OUT = 1;
+    public final static int DRIVE_SHIFT_IN = 4;
+    public final static int DRIVE_SHIFT_OUT = 3;
     public final static int ARM_STOP_IN = 5;
     public final static int ARM_STOP_OUT = 2;
 

@@ -16,14 +16,14 @@ import frc.robot.RobotMap;
 
 public class HatchArm extends Subsystem {
   
-  private DoubleSolenoid hatch = new DoubleSolenoid(1, RobotMap.HATCH_OUT, RobotMap.HATCH_IN);
+  private DoubleSolenoid hatch = new DoubleSolenoid(RobotMap.HATCH_OUT, RobotMap.HATCH_IN);
   private WPI_TalonSRX hatchFall = new WPI_TalonSRX(RobotMap.HATCH_FALL);
 
-  private double gearBoxReduction = 1;
+  private double gearBoxReduction = 56 / 50;
 
   private double coefficient =  (360 * gearBoxReduction / 4096);
 
-  private double startingAngle = 80;
+  private double startingAngle = 0;
 
   public HatchArm() {
     hatchFall.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 

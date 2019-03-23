@@ -167,8 +167,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println(cargoArm.getVelocity() + "Velcoity");
-    System.out.println(cargoArm.getAngle() + "Angle");
+    System.out.println(hatchArm.getAngle() + "Angle");
   }
 
   /**
