@@ -29,10 +29,10 @@ public class OI {
     public OI() {
         autoAlignButton.whenPressed(new AutoAlignCommand());
         centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        // floorCargoArm.whenReleased(new SetAngleArm(15));
-        // cargoCargoArm.whenReleased(new SetAngleArm(80));
-        // rocketCargoArm.whenReleased(new SetAngleArm(50));
-        // stowCargoArm.whenReleased(new SetAngleArm(110));
+        floorCargoArm.whenReleased(new SetAngleArm(15));
+        cargoCargoArm.whenReleased(new SetAngleArm(80));
+        rocketCargoArm.whenReleased(new SetAngleArm(50));
+        stowCargoArm.whenReleased(new SetAngleArm(110));
         raiseHatch.whenReleased(new RaiseHatch());
         lowerHatch.whenReleased(new LowerHatch());
     }
