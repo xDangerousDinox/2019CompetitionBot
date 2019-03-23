@@ -13,31 +13,21 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class PIDCargoArm extends PIDSubsystem {
+public class PIDHatchArm extends PIDSubsystem {
   /**
    * Add your docs here.
    */
-  
-  public PIDCargoArm() {
+
+  public static final double max_velocity = 1;
+
+  public PIDHatchArm() {
     // Intert a subsystem name and PID values here
-    super("PIDCargoArm", 0.4, 0.05, 0);
-    setOutputRange(-1, 1);
+    super("PIDHatchArm", 0.2, 0.05, 0);
+    setOutputRange(-0.5, 0.5);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
-  }
-
-  public void setP(double P) {
-    getPIDController().setP(P);
-  }
-
-  public void setI(double I) {
-    getPIDController().setI(I);
-  }
-
-  public void setD(double D) {
-    getPIDController().setD(D);
   }
 
   @Override
@@ -51,13 +41,13 @@ public class PIDCargoArm extends PIDSubsystem {
     // Return your input value for the PID loop
     // e.g. a sensor, like a potentiometer:
     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return Robot.cargoArm.getVelocity() / 15.0;
+    return Robot.hatchArm.getVelocity() / max_velocity;
   }
 
   @Override
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
-    Robot.cargoArm.setCargoArm(output);
+    Robot.hatchArm.setHatchArm(output);
   }
 }

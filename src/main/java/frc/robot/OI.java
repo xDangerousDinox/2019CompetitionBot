@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.autocommands.AutoAlignCommand;
+import frc.robot.autocommands.LowerHatch;
 import frc.robot.autocommands.OrientTowardsCenterpointCommand;
+import frc.robot.autocommands.RaiseHatch;
 import frc.robot.autocommands.SetAngleArm;
 
 /**
@@ -21,6 +23,8 @@ public class OI {
     private Button cargoCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_CARGO);
     private Button rocketCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_ROCKET);
     private Button stowCargoArm = new JoystickButton(operatorStick, RobotMap.CARGO_ARM_STOW);
+    private Button raiseHatch = new JoystickButton(operatorStick, RobotMap.RAISE_HATCH);
+    private Button lowerHatch = new JoystickButton(operatorStick, RobotMap.LOWER_HATCH);
 
     public OI() {
         autoAlignButton.whenPressed(new AutoAlignCommand());
@@ -29,6 +33,8 @@ public class OI {
         cargoCargoArm.whenReleased(new SetAngleArm(80));
         rocketCargoArm.whenReleased(new SetAngleArm(50));
         stowCargoArm.whenReleased(new SetAngleArm(110));
+        raiseHatch.whenReleased(new RaiseHatch());
+        lowerHatch.whenReleased(new LowerHatch());
     }
 
       // Drive Stick

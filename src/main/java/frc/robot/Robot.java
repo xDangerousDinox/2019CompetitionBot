@@ -23,6 +23,7 @@ import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchArm;
 import frc.robot.subsystems.PIDCargoArm;
+import frc.robot.subsystems.PIDHatchArm;
 import frc.robot.teleopcommands.ManualCargoArm;
 import frc.robot.teleopcommands.SmartDash;
 import frc.robot.teleopcommands.TeleopCameraController;
@@ -69,8 +70,8 @@ public class Robot extends TimedRobot {
 
   public static ManualCargoArm manualCargoArm = new ManualCargoArm();
 
-  public static PIDCargoArm pidCargoArm = new PIDCargoArm()
-  ;
+  public static PIDCargoArm pidCargoArm = new PIDCargoArm();
+  public static PIDHatchArm pidHatchArm = new PIDHatchArm();
 
   public static PIDManualMoveArm pidManualMoveArm = new PIDManualMoveArm();
 
@@ -157,8 +158,7 @@ public class Robot extends TimedRobot {
     //teleopDrive.start();
     //pidManualMoveArm.start();
     //manualCargoArm.start();
-    //teleopHatch.start();
-    //driveTrain.arcade(0.7, 0);
+    teleopHatch.start();
   }
 
   /**
