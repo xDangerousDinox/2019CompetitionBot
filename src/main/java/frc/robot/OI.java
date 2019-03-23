@@ -27,12 +27,12 @@ public class OI {
     private Button lowerHatch = new JoystickButton(operatorStick, RobotMap.LOWER_HATCH);
 
     public OI() {
-        autoAlignButton.whenPressed(new AutoAlignCommand());
-        centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        floorCargoArm.whenReleased(new SetAngleArm(15));
-        cargoCargoArm.whenReleased(new SetAngleArm(80));
-        rocketCargoArm.whenReleased(new SetAngleArm(50));
-        stowCargoArm.whenReleased(new SetAngleArm(110));
+        // autoAlignButton.whenPressed(new AutoAlignCommand());
+        // centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
+        // floorCargoArm.whenReleased(new SetAngleArm(15));
+        // cargoCargoArm.whenReleased(new SetAngleArm(80));
+        // rocketCargoArm.whenReleased(new SetAngleArm(50));
+        // stowCargoArm.whenReleased(new SetAngleArm(110));
         raiseHatch.whenReleased(new RaiseHatch());
         lowerHatch.whenReleased(new LowerHatch());
     }

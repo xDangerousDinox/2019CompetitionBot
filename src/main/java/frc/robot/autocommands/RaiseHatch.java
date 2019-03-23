@@ -32,7 +32,7 @@ public class RaiseHatch extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.hatchArm.getAngle() > 70;
+    return Robot.hatchArm.getAngle() > 80;
   }
 
   // Called once after isFinished returns true
