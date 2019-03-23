@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
     //smartDash.start();
     //teleopDrive.start();
     //pidManualMoveArm.start();
-    manualCargoArm.start();
+    //manualCargoArm.start();
     //teleopHatch.start();
     //driveTrain.arcade(0.7, 0);
   }
