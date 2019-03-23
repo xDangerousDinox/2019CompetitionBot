@@ -16,21 +16,21 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class RobotTables {
 
     private NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    private NetworkTable visionTable = inst.getTable("TestTable");
+    private NetworkTable visionTable = inst.getTable("VisionTable");
 
     public int getCenterX() {
-        return (int) visionTable.getEntry("centerX").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
+        return (int) visionTable.getEntry("centerTargetX").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
     }
 
     public int leftTargetX() {
-        return (int) visionTable.getEntry("leftTarget").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
+        return (int) visionTable.getEntry("leftTargetX").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
     }
 
     public int rightTargetX() {
-        return (int) visionTable.getEntry("rightTarget").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
+        return (int) visionTable.getEntry("rightTargetX").getDouble(RobotMap.CAMERA_WIDTHPX / 2);
     }
 
     public double distanceTarget() {
-        return (int) visionTable.getEntry("distanceTarget").getDouble(0);
+        return (int) visionTable.getEntry("distanceTargetIn").getDouble(0);
     }
 }

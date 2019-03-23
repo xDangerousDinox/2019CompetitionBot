@@ -30,10 +30,24 @@ public class SetAngleArm extends Command {
   protected void initialize() {
     Robot.cargoArm.releaseBrake();
     if (Robot.cargoArm.getAngle() < targetAngle) {
-      Robot.pidCargoArm.setSetpoint(0.2);
+      Robot.pidCargoArm.setP(0.4);
+      Robot.pidCargoArm.setI(0.05);
+      Robot.pidCargoArm.setD(0);
+      Robot.pidCargoArm.setSetpoint(0.3);
     } else {
-      Robot.pidCargoArm.setSetpoint(-0.2);
+      if (targetAngle == 50) {
+        Robot.pidCargoArm.setP(0.4);
+        Robot.pidCargoArm.setI(0.1);
+        Robot.pidCargoArm.setD(0);
+        Robot.pidCargoArm.setSetpoint(-0.1);
+      } else {
+        Robot.pidCargoArm.setP(0.4);
+        Robot.pidCargoArm.setI(0.05);
+        Robot.pidCargoArm.setD(0);
+        Robot.pidCargoArm.setSetpoint(-0.3);
+      }
     }
+
     Robot.pidCargoArm.enable();
   }
 
@@ -61,7 +75,7 @@ public class SetAngleArm extends Command {
       return emergencyBreak;
     }
     double angle = Robot.cargoArm.getAngle();
-		return angle < (targetAngle + 2.5) && angle > (targetAngle - 2.5);
+		return angle == targetAngle;
   } 
 
   // Called once after isFinished returns true

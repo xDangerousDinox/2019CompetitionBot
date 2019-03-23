@@ -24,12 +24,24 @@ public class PIDCargoArm extends PIDSubsystem {
   
   public PIDCargoArm() {
     // Intert a subsystem name and PID values here
-    super("PIDCargoArm", 0.7, 0.05, 0);
-    setOutputRange(-0.4, 0.4);
+    super("PIDCargoArm", 0.4, 0.05, 0);
+    setOutputRange(-1, 1);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
     // enable() - Enables the PID controller.
+  }
+
+  public void setP(double P) {
+    getPIDController().setP(P);
+  }
+
+  public void setI(double I) {
+    getPIDController().setI(I);
+  }
+
+  public void setD(double D) {
+    getPIDController().setD(D);
   }
 
   @Override
