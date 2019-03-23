@@ -42,8 +42,6 @@ public class RobotMap {
     public final static int DRIVE_SHIFT_OUT = 1;
     public final static int ARM_STOP_IN = 5;
     public final static int ARM_STOP_OUT = 2;
-    public final static int CLIMB_TORQUE_IN = 4;
-    public final static int CLIMB_TORQUE_OUT = 5;
 
     /*
      * **************** JOYSTICK BUTTONS ****************
