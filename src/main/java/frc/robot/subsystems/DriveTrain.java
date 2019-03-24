@@ -66,7 +66,14 @@ public class DriveTrain extends Subsystem {
 
   private int reverseDirection = 1;
 
+  private double coefficient = (210 / 51) * (1 / 4096);
+
   public DriveTrain() {
+    leftEncoder.setPositionConversionFactor(coefficient);
+    rightEncoder.setPositionConversionFactor(coefficient);
+    leftEncoder.setVelocityConversionFactor(coefficient);
+    rightEncoder.setVelocityConversionFactor(coefficient);
+
     // left2.follow(left1);
     // left3.follow(left1);
 
