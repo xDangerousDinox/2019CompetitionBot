@@ -8,6 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import frc.robot.Constants;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
@@ -16,9 +18,12 @@ public class PIDDriveTrain extends PIDSubsystem {
   /**
    * Add your docs here.
    */
+
+  private double currentOutput = 0;
+
   public PIDDriveTrain() {
     // Intert a subsystem name and PID values here
-    super("PIDDriveTrain", 1, 2, 3);
+    super("PIDDriveTrain", 0.2, 0, 0);
     // Use these to get going:
     // setSetpoint() - Sets where the PID controller should move the system
     // to
@@ -36,12 +41,19 @@ public class PIDDriveTrain extends PIDSubsystem {
     // Return your input value for the PID loop
     // e.g. a sensor, like a potentiometer:
     // yourPot.getAverageVoltage() / kYourMaxVoltage;
-    return 0.0;
+    return 0;
+    //return Robot.driveTrain.getVelocity();
   }
 
   @Override
   protected void usePIDOutput(double output) {
     // Use output to drive your system, like a motor
     // e.g. yourMotor.set(output);
+    currentOutput = output;
   }
+
+  // public double getOutput() {
+  //   return currentOutput;
+  // }
+
 }
