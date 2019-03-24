@@ -29,12 +29,12 @@ public class OI {
     public OI() {
         // autoAlignButton.whenPressed(new AutoAlignCommand());
         // centerPointOrientButton.whenPressed(new OrientTowardsCenterpointCommand());
-        floorCargoArm.whenReleased(new SetAngleArm(20));
-        cargoCargoArm.whenReleased(new SetAngleArm(85));
-        rocketCargoArm.whenReleased(new SetAngleArm(65));
-        stowCargoArm.whenReleased(new SetAngleArm(110));
-        raiseHatch.whenReleased(new RaiseHatch());
-        lowerHatch.whenReleased(new LowerHatch());
+        // floorCargoArm.whenReleased(new SetAngleArm(20));
+        // cargoCargoArm.whenReleased(new SetAngleArm(85));
+        // rocketCargoArm.whenReleased(new SetAngleArm(65));
+        // stowCargoArm.whenReleased(new SetAngleArm(110));
+        // raiseHatch.whenReleased(new RaiseHatch());
+        // lowerHatch.whenReleased(new LowerHatch());
     }
 
       // Drive Stick
