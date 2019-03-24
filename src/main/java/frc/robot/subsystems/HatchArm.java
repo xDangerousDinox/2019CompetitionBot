@@ -16,7 +16,6 @@ import frc.robot.RobotMap;
 
 public class HatchArm extends Subsystem {
   
-  private DoubleSolenoid hatch = new DoubleSolenoid(RobotMap.HATCH_OUT, RobotMap.HATCH_IN);
   private WPI_TalonSRX hatchFall = new WPI_TalonSRX(RobotMap.HATCH_FALL);
 
   private double gearBoxReduction = 56 / 50;
@@ -46,17 +45,5 @@ public class HatchArm extends Subsystem {
 
   public void setHatchArm(double v) {
     hatchFall.set(v);
-  }
-
-  public void forward() {
-    hatch.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void reverse() {
-    hatch.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void stop() {
-    hatch.set(DoubleSolenoid.Value.kOff);
   }
 }

@@ -15,7 +15,6 @@ public class LowerHatch extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.hatchArm);
-    requires(Robot.pidHatchArm);
   }
 
   // Called just before this Command runs the first time
@@ -45,5 +44,7 @@ public class LowerHatch extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
+

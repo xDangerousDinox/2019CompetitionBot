@@ -29,16 +29,12 @@ public class CargoArm extends Subsystem {
   private double coefficient = (360 * gearBoxReduction / 4096);
   public static double startingAngle = 115; //see note on HatchArm
 
-  
-  private CANSparkMax shoot = new CANSparkMax(RobotMap.SHOOT, MotorType.kBrushed);
   private WPI_TalonSRX arm = new WPI_TalonSRX(RobotMap.ARM_CARGO);
-
-  private DoubleSolenoid cargoBrake = new DoubleSolenoid(RobotMap.ARM_STOP_IN, RobotMap.ARM_STOP_OUT);
 
   public CargoArm() {
 
-    shoot.setParameter(ConfigParameter.kIdleMode, 1);
-    shoot.setParameter(ConfigParameter.kMotorType, 0);
+    // shoot.setParameter(ConfigParameter.kIdleMode, 1);
+    // shoot.setParameter(ConfigParameter.kMotorType, 0);
 
     arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); 
     arm.configSelectedFeedbackCoefficient(coefficient);
@@ -67,27 +63,5 @@ public class CargoArm extends Subsystem {
 
   public int getSelectedSensorVelocity() {
     return -1 * this.arm.getSelectedSensorVelocity();
-  }
-
-  public void shootOut() {
-    shoot.set(-1);
-  }
-
-  public void stopShoot() {
-    shoot.set(0);
-  }
-
-  public void shootIn() {
-    shoot.set(0.5);
-  }
-
-  public void releaseBrake() {
-    cargoBrake.set(DoubleSolenoid.Value.kReverse);
-    SmartDashboard.putString("Brake", "On");
-  }
-
-  public void brake() {
-    cargoBrake.set(DoubleSolenoid.Value.kForward);
-    SmartDashboard.putString("Brake", "Off");
   }
 }

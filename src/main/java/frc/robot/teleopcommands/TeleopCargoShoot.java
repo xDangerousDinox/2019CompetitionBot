@@ -14,7 +14,7 @@ import frc.robot.RobotMap;
 public class TeleopCargoShoot extends Command {
   public TeleopCargoShoot() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.cargoArm);
+    requires(Robot.cargoShoot);
   }
 
   // Called just before this Command runs the first time
@@ -26,11 +26,11 @@ public class TeleopCargoShoot extends Command {
   @Override
   protected void execute() {
     if (Robot.oi.isOperatorButtonDown(RobotMap.SHOOT_IN_BUTTON)){
-      Robot.cargoArm.shootOut();
+      Robot.cargoShoot.shootOut();
     } else if (Robot.oi.isOperatorButtonDown(RobotMap.SHOOT_OUT_BUTTON)){
-      Robot.cargoArm.shootIn();
+      Robot.cargoShoot.shootIn();
     } else {
-      Robot.cargoArm.stopShoot();
+      Robot.cargoShoot.stopShoot();
     }
   }
 

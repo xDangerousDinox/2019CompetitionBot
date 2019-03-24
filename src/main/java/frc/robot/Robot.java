@@ -19,12 +19,15 @@ import frc.robot.autocommands.AutoSwitchCommand;
 import frc.robot.autocommands.PIDManualMoveArm;
 import frc.robot.subsystems.CameraController;
 import frc.robot.subsystems.CargoArm;
+import frc.robot.subsystems.CargoBrake;
+import frc.robot.subsystems.CargoShoot;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.HatchArm;
+import frc.robot.subsystems.HatchSolenoid;
 import frc.robot.subsystems.PIDCargoArm;
 import frc.robot.subsystems.PIDHatchArm;
-import frc.robot.teleopcommands.ManualCargoArm;
+import frc.robot.teleopcommands.ManualCargoBrake;
 import frc.robot.teleopcommands.SmartDash;
 import frc.robot.teleopcommands.TeleopCameraController;
 import frc.robot.teleopcommands.TeleopCargoShoot;
@@ -58,9 +61,16 @@ public class Robot extends TimedRobot {
 
   public static DriveTrain driveTrain = new DriveTrain();
   public static CameraController cameraController = new CameraController();
+
+
   public static CargoArm cargoArm = new CargoArm();
+  public static CargoShoot cargoShoot = new CargoShoot();
+  public static CargoBrake cargoBrake = new CargoBrake();
+
   public static Climb climb = new Climb();
+
   public static HatchArm hatchArm = new HatchArm();
+  public static HatchSolenoid hatchSolenoid = new HatchSolenoid();
 
   public static TeleopDrive teleopDrive = new TeleopDrive();
   public static TeleopCargoShoot teleopCargoShoot = new TeleopCargoShoot();
@@ -68,7 +78,7 @@ public class Robot extends TimedRobot {
   public static TeleopCameraController teleopCameraController = new TeleopCameraController();
   public static TeleopHatch teleopHatch = new TeleopHatch();
 
-  public static ManualCargoArm manualCargoArm = new ManualCargoArm();
+  public static ManualCargoBrake manualCargoBrake = new ManualCargoBrake();
 
   public static PIDCargoArm pidCargoArm = new PIDCargoArm();
   public static PIDHatchArm pidHatchArm = new PIDHatchArm();
@@ -137,9 +147,11 @@ public class Robot extends TimedRobot {
     //autoSwitchCommand = new AutoSwitchCommand(endingPosition.getSelected(), startingPosition.getSelected());
     //autoSwitchCommand.start();
     teleopDrive.start();
+    manualCargoBrake.start();
     //pidManualMoveArm.start();
     teleopCargoShoot.start();
     teleopHatch.start();
+    hatchSolenoid.reverse();
   }
 
   /**
@@ -153,12 +165,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     super.teleopInit();
-    //teleopCameraController.start();
     teleopCargoShoot.start();
-    //smartDash.start();
-    //teleopDrive.start();
-    //pidManualMoveArm.start();
-    //manualCargoArm.start();
+    teleopDrive.start();
+    manualCargoBrake.start();
     teleopHatch.start();
   }
 
@@ -168,7 +177,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    //System.out.println(hatchArm.getAngle() + "Angle");
+    System.out.println(hatchArm.getAngle() + "Angle");
   }
 
   /**

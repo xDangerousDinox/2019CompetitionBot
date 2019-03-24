@@ -8,6 +8,7 @@
 package frc.robot.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -17,6 +18,7 @@ public class SetAngleArm extends Command {
 
   private double targetAngle;
   private boolean emergencyBreak = false;
+  private boolean withIn15Degrees = false;
 
   public SetAngleArm(int targetAngle) {
     this.targetAngle = targetAngle;
@@ -28,26 +30,17 @@ public class SetAngleArm extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.cargoArm.releaseBrake();
+    Robot.cargoBrake.releaseBrake();
     if (Robot.cargoArm.getAngle() < targetAngle) {
-      Robot.pidCargoArm.setP(0.4);
-      Robot.pidCargoArm.setI(0.05);
-      Robot.pidCargoArm.setD(0);
-      Robot.pidCargoArm.setSetpoint(0.3);
+      Robot.pidCargoArm.setSetpoint(0.7);
     } else {
       if (targetAngle == 50) {
-        Robot.pidCargoArm.setP(0.4);
-        Robot.pidCargoArm.setI(0.1);
-        Robot.pidCargoArm.setD(0);
         Robot.pidCargoArm.setSetpoint(-0.1);
       } else {
-        Robot.pidCargoArm.setP(0.4);
-        Robot.pidCargoArm.setI(0.05);
-        Robot.pidCargoArm.setD(0);
-        Robot.pidCargoArm.setSetpoint(-0.3);
+        Robot.pidCargoArm.setSetpoint(-0.7);
       }
     }
-
+   // SmartDashboard.setString("")
     Robot.pidCargoArm.enable();
   }
 
@@ -56,6 +49,13 @@ public class SetAngleArm extends Command {
   protected void execute() {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.EMERGENCY_STOP)) {
       emergencyBreak = true;
+    }
+    if (Math.abs(Robot.cargoArm.getAngle() - targetAngle) < 15 && !withIn15Degrees) {
+      if (Robot.cargoArm.getAngle() < targetAngle) {
+        Robot.pidCargoArm.setSetpoint(0.1);
+      } else {
+        Robot.pidCargoArm.setSetpoint(-0.1);
+      }
     }
     // double angle = Robot.cargoArm.getAngle();
     // if (Math.abs(targetAngle - angle) < 15 && 
@@ -75,7 +75,7 @@ public class SetAngleArm extends Command {
       return emergencyBreak;
     }
     double angle = Robot.cargoArm.getAngle();
-		return angle == targetAngle;
+		return angle < (targetAngle + 2.5) && angle > (targetAngle - 2.5);
   } 
 
   // Called once after isFinished returns true
@@ -84,12 +84,14 @@ public class SetAngleArm extends Command {
     Robot.pidCargoArm.disable();
     Robot.cargoArm.setCargoArm(0);
     Robot.pidCargoArm.setSetpoint(0);
-    Robot.cargoArm.brake();
+    Robot.cargoBrake.brake();
+
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

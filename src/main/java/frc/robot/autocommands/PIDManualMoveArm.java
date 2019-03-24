@@ -23,7 +23,7 @@ public class PIDManualMoveArm extends Command {
   protected void initialize() {
     Robot.pidCargoArm.setSetpoint(0.0);
     Robot.pidCargoArm.enable();
-    Robot.cargoArm.brake();
+    Robot.cargoBrake.releaseBrake();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -31,10 +31,8 @@ public class PIDManualMoveArm extends Command {
   protected void execute() {
     double y = Robot.oi.operatorStick.getY();
     if (y > 0.2 || y < -0.2) {
-      Robot.cargoArm.releaseBrake();
-      Robot.pidCargoArm.setSetpoint(y);
+      Robot.pidCargoArm.setSetpoint(y * 0.2);
     } else {
-      Robot.cargoArm.brake();
       Robot.pidCargoArm.setSetpoint(0);
     }
   }

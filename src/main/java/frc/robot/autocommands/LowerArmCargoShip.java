@@ -26,7 +26,7 @@ public class LowerArmCargoShip extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.cargoArm.releaseBrake();
+    Robot.cargoBrake.releaseBrake();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -52,7 +52,7 @@ public class LowerArmCargoShip extends Command {
   @Override
   protected void end() {
     Robot.cargoArm.setCargoArm(0);
-    Robot.cargoArm.brake();
+    Robot.cargoBrake.brake();
   }
 
   // Called when another command which requires one or more of the same

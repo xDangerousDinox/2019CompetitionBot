@@ -16,7 +16,7 @@ public class TeleopHatch extends Command {
 
   public TeleopHatch() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.hatchArm);
+    requires(Robot.hatchSolenoid);
   }
 
   // Called just before this Command runs the first time
@@ -29,11 +29,11 @@ public class TeleopHatch extends Command {
   protected void execute() {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_FORWARD)) {
       SmartDashboard.putString("HatchOut", "True");
-        Robot.hatchArm.forward();
+        Robot.hatchSolenoid.forward();
     }
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.HATCH_BACKWARD)) {
       SmartDashboard.putString("HatchOut", "False");
-      Robot.hatchArm.reverse();
+      Robot.hatchSolenoid.reverse();
     }
   }
 

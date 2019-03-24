@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class ManualCargoArm extends Command {
-  public ManualCargoArm() {
+public class ManualCargoBrake extends Command {
+  public ManualCargoBrake() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.cargoBrake);
   }
 
   // Called just before this Command runs the first time
@@ -26,10 +27,10 @@ public class ManualCargoArm extends Command {
   @Override
   protected void execute() {
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE)) {
-      Robot.cargoArm.brake();
+      Robot.cargoBrake.brake();
     }
     if (Robot.oi.operatorStick.getRawButtonReleased(RobotMap.BRAKE_RELEASE)) {
-      Robot.cargoArm.releaseBrake();
+      Robot.cargoBrake.releaseBrake();
     }
     // if (Math.abs(Robot.oi.operatorStick.getY()) > 0.2) {
     //   Robot.cargoArm.setCargoArm(Robot.oi.operatorStick.getY() * 0.3);
